@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-core.fullname" . }}
+  labels:
+    {{- include "api-core.labels" . | nindent 4 }}
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/metrics'
+    prometheus.io/port: '3333'
+spec:
+  {{- if not .Values.apiCore.autoscaling.enabled }}
+  replicas: {{ .Values.apiCore.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "api-core.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.apiCore.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "api-core.labels" . | nindent 8 }}
+        {{- with .Values.apiCore.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.apiCore.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "api-core.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.apiCore.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.apiCore.securityContext | nindent 12 }}
+          image: "{{ .Values.apiCore.image.repository }}:{{ .Values.apiCore.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.apiCore.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "api-core.fullname" . }}-config
+          ports:
+            - name: http
+              containerPort: {{ .Values.apiCore.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.apiCore.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.apiCore.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.apiCore.resources | nindent 12 }}
+          {{- with .Values.apiCore.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.apiCore.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiCore.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiCore.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.apiCore.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

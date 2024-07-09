@@ -1,0 +1,12 @@
+{{- if .Values.apiCore.environmentVariables }}
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "api-core.fullname" . }}-config
+  labels:
+    {{- include "api-core.labels" . | nindent 4 }}
+data:
+  {{- toYaml .Values.apiCore.environmentVariables | nindent 2 }}
+
+{{- end }}
