@@ -6,7 +6,7 @@ nameOverride: ""
 
 apiCore:
   fullNameOverride: ""
-  replicaCount: 1
+  replicaCount: 3
 
   image:
     repository: geduiapicore.azurecr.io/geduiapicore
