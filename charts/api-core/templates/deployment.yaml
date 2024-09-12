@@ -35,7 +35,7 @@ spec:
       securityContext:
         {{- toYaml .Values.apiCore.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{- include "api-core.fullname" -}}
+        - name: {{ include "api-core.fullname" . }}-container
           securityContext:
             {{- toYaml .Values.apiCore.securityContext | nindent 12 }}
           image: "{{ .Values.apiCore.image.repository }}:{{ .Values.apiCore.image.tag | default .Chart.AppVersion }}"
