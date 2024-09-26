@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts: |-
+  - hosts:
       {{- range .Values.apiCore.ingress.hosts }}
       - {{ . }}
       {{- end }}
