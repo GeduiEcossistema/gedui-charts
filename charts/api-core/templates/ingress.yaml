@@ -11,20 +11,18 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-      {{- range .Values.apiCore.ingress.hosts }}
-      - {{ . }}
-      {{- end }}
+      - {{ .Values.apiCore.ingress.host }}
     secretName: {{ include "api-core.fullname" . }}-cert-issuer
   rules:
-  {{- range .Values.apiCore.ingress.hosts }}
   - http:
       paths:
       - pathType: Prefix
-        path: {{ $.Values.apiCore.ingress.pathPrefix }}
+        path: {{ .Values.apiCore.ingress.pathPrefix }}
         backend:
           service:
-            name: {{ include "api-core.fullname" $ }}
+            name: {{ include "api-core.fullname" . }}
             port:
-              number: {{ $.Values.apiCore.service.port }}
-    host: {{ . }}
-  {{- end }}
+              number: {{ .Values.apiCore.service.port }}
+    {{- if .Values.apiCore.ingress.host }}
+    host: {{ .Values.apiCore.ingress.host }}
+    {{- end }}
