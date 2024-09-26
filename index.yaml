@@ -3,6 +3,16 @@ entries:
   api-core:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-09-26T17:25:23.730045252Z"
+    description: Gedui chart
+    digest: 080b426a31beeb6bc163aba938e2f631c142861e4aba8fec08e2e1573e0018cc
+    name: api-core
+    type: application
+    urls:
+    - https://github.com/GeduiEcossistema/gedui-charts/releases/download/api-core-0.1.8/api-core-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-09-26T13:45:54.030054283Z"
     description: Gedui chart
     digest: 3599522cddb47199298d5ff085a5f41b82253c3004569e30a68b37d848367837
@@ -81,4 +91,4 @@ entries:
     urls:
     - https://github.com/GeduiEcossistema/gedui-charts/releases/download/api-core-0.1.0/api-core-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-26T13:45:54.030085481Z"
+generated: "2024-09-26T17:25:23.730077443Z"
