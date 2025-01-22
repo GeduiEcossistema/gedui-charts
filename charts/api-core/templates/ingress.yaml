@@ -13,7 +13,7 @@ spec:
   {{- range .Values.apiCore.ingress.hosts }}
   - hosts:
       - {{ .host }}
-    secretName: {{ include "api-core.fullname" . }}-cert-issuer
+    secretName: {{ include "api-core.fullname" $ }}-cert-issuer
   {{- end }}
   rules:
   {{- range .Values.apiCore.ingress.hosts }}
