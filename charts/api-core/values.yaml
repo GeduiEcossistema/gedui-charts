@@ -26,10 +26,10 @@ apiCore:
     port: 3333
   
   ingress:
-    pathPrefix: "/"
-    hosts: 
-      - "api.dev.app.gedui.com.br"
-  
+    - pathPrefix: "/"
+      hosts: 
+        - "api.dev.app.gedui.com.br"
+
   environmentVariables:
     AWS_ACCESS_KEY_ID: dummy
     AWS_SECRET_ACCESS_KEY: dummy
