@@ -28,7 +28,7 @@ apiCore:
   ingress:
     hosts:
       - pathPrefix: "/"
-        hosts: 
+        paths:
           - "api.dev.app.gedui.com.br"
 
   environmentVariables:
