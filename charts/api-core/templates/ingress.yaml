@@ -27,6 +27,6 @@ spec:
           service:
             name: {{ include "api-core.fullname" $ }}
             port:
-              number: {{ $root.Values.apiCore.service.port }}
+              number: {{ $.Values.apiCore.service.port }}
       {{- end }}
   {{- end }}
